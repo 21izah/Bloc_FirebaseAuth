@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "82966115010",
+    "project_id": "izahs-1ae32",
+    "storage_bucket": "izahs-1ae32.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:82966115010:android:fd5b9bb0aa419adbb2015b",
+        "android_client_info": {
+          "package_name": "com.example.izahs"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "82966115010-4t269013i7ccjmoer15dc0eth1vra8j2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB19qltbuJWNrGRkDqGz7Zp0RCuz9HkTc8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "82966115010-4t269013i7ccjmoer15dc0eth1vra8j2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "82966115010-nagg4ocdlhqbk44dr4l1ahoqm7p0ej39.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.izahs"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
