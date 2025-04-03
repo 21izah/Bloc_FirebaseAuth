@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:izahs/features/auth/domain/entities/app_user.dart';
@@ -66,18 +67,29 @@ class _ProfilePageState extends State<ProfilePage> {
                   SizedBox(
                     height: 25,
                   ),
-                  Container(
-                    height: 120,
-                    width: 120,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        color: Theme.of(context).colorScheme.secondary),
-                    child: Center(
-                      child: Icon(
-                        Icons.person,
-                        size: 72,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
+                  CachedNetworkImage(
+                    imageUrl: user.profileImageUrl,
+                    // loading...
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+
+                    // error
+                    errorWidget: (context, url, error) => Icon(
+                      Icons.person,
+                      size: 72,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+
+                    // loaded
+                    imageBuilder: (context, imageProvider) => Container(
+                      height: 120,
+                      width: 120,
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: imageProvider,
+                            fit: BoxFit.cover,
+                          )),
                     ),
                   ),
                   SizedBox(
