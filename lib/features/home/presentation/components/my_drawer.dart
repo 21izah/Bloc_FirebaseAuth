@@ -4,6 +4,9 @@ import 'package:izahs/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:izahs/features/home/presentation/components/my_drawer_tile.dart';
 import 'package:izahs/features/profile/presentation/pages/profile_page.dart';
 
+import '../../../search/presentation/pages/search_page.dart';
+import '../../../settings/pages/settings_page.dart';
+
 class MyDrawer02 extends StatelessWidget {
   const MyDrawer02({super.key});
 
@@ -56,22 +59,22 @@ class MyDrawer02 extends StatelessWidget {
                   icon: Icons.search,
                   onTap: () {
                     Navigator.of(context).pop();
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => SearchPage(),
-                    //     ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SearchPage(),
+                        ));
                   }),
               MyDrawerTile(
                   title: "S E T T I N G S",
                   icon: Icons.settings,
                   onTap: () {
                     Navigator.of(context).pop();
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => SettingsPage(),
-                    //     ));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SettingsPage(),
+                        ));
                   }),
               Spacer(),
               MyDrawerTile(

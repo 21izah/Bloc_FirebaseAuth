@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:izahs/features/profile/domain/entities/profile_user.dart';
 import 'package:izahs/features/profile/domain/repos/profile_repo.dart';
 import 'package:izahs/features/profile/presentation/cubits/profile_states.dart';
 import 'package:izahs/features/storage/domain/storage_repo.dart';
@@ -12,7 +13,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit({required this.profileRepo, required this.storageRepo})
       : super(ProfileInitial());
 
-  // fetch user profile using repo
+  // fetch user profile using repo -> useful for loading profile pages
   Future<void> fetchUserProfile(String uid) async {
     try {
       emit(ProfileLoading());
@@ -25,6 +26,12 @@ class ProfileCubit extends Cubit<ProfileState> {
     } catch (e) {
       emit(ProfileError(e.toString()));
     }
+  }
+
+  // return user profile given uid -> useful for loading many profile for posts
+  Future<ProfileUser?> getUserProfile(String uid) async {
+    final user = await profileRepo.fetchUserProfile(uid);
+    return user;
   }
 
   Future<void> updateProfile({
@@ -77,6 +84,16 @@ class ProfileCubit extends Cubit<ProfileState> {
       await fetchUserProfile(uid);
     } catch (e) {
       emit(ProfileError("Error updating profile: $e"));
+    }
+  }
+
+  // toggle follow/unfollow
+  Future<void> toggleFollow(String currenUserId, String targetUserId) async {
+    try {
+      await profileRepo.toggleFollow(currenUserId, targetUserId);
+      // await fetchUserProfile(targetUserId);
+    } catch (e) {
+      emit(ProfileError("Error toggling follow: $e"));
     }
   }
 }

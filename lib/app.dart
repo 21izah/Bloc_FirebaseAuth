@@ -5,11 +5,14 @@ import 'package:izahs/features/auth/presentation/cubits/auth_cubit.dart';
 import 'package:izahs/features/auth/presentation/cubits/auth_states.dart';
 import 'package:izahs/features/auth/presentation/pages/auth_page.dart';
 import 'package:izahs/features/home/presentation/pages/home_page.dart';
+import 'package:izahs/features/post/data/firebase_post_repo.dart';
+import 'package:izahs/features/post/presentation/cubits/post_cubit.dart';
 import 'package:izahs/features/profile/data/firebase_profile_repo.dart';
 import 'package:izahs/features/profile/presentation/cubits/profile_cubit.dart';
+import 'package:izahs/features/search/data/firebase_search_repo.dart';
+import 'package:izahs/features/search/presentation/cubits/search_cubit.dart';
 import 'package:izahs/features/storage/data/firebase_storage_repo.dart';
-import 'package:izahs/features/storage/domain/storage_repo.dart';
-import 'package:izahs/themes/light_mode.dart';
+import 'package:izahs/themes/theme_cubit.dart';
 
 /* 
 APP - Root Level 
@@ -32,67 +35,72 @@ Check Auth State
 
 */
 class MyApp extends StatelessWidget {
-  // auth repo
+  // Repositories
   final firebaseAuthRepo = FirebaseAuthRepo();
-
-  // profile repo
   final firebaseProfileRepo = FirebaseProfileRepo();
-
-  // storage repo
   final firebaseStorageRepo = FirebaseStorageRepo();
+  final firebasePostRepo = FirebasePostRepo();
+  final firebaseSearchRepo = FirebaseSearchRepo();
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          // providing cubit to the app
+        // Auth Cubit
+        BlocProvider<AuthCubit>(
           create: (context) =>
               AuthCubit(authRepo: firebaseAuthRepo)..checkAuth(),
         ),
+
+        // Profile Cubit
         BlocProvider<ProfileCubit>(
           create: (context) => ProfileCubit(
-              profileRepo: firebaseProfileRepo,
-              storageRepo: firebaseStorageRepo),
+            profileRepo: firebaseProfileRepo,
+            storageRepo: firebaseStorageRepo,
+          ),
+        ),
+
+        // Post Cubit
+        BlocProvider<PostCubit>(
+          create: (context) => PostCubit(
+            postRepo: firebasePostRepo,
+            storageRepo: firebaseStorageRepo,
+          ),
+        ),
+
+        // Search Cubit
+        BlocProvider<SearchCubit>(
+          create: (context) => SearchCubit(searchRepo: firebaseSearchRepo),
+        ),
+
+        // Theme Cubit
+        BlocProvider<ThemeCubit>(
+          create: (context) => ThemeCubit(),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: lightmode,
-        home: BlocConsumer<AuthCubit, AuthState>(builder: (context, authState) {
-          // unauthenticated -> auth page (login/register)
-          if (authState is Unauthenticated) {
-            return const AuthPage();
-          }
-
-          // authenticated -> home page
-          if (authState is Authenticated) {
-            return const HomePage();
-          }
-
-          // loading...
-          else {
-            return const Scaffold(
-              body: Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
+      child: BlocBuilder<ThemeCubit, ThemeData>(
+        builder: (context, currentTheme) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: currentTheme,
+            home: BlocBuilder<AuthCubit, AuthState>(
+              builder: (context, authState) {
+                if (authState is Unauthenticated) {
+                  return const AuthPage();
+                }
+                if (authState is Authenticated) {
+                  return const HomePage();
+                }
+                return const Scaffold(
+                  body: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                );
+              },
+            ),
+          );
         },
-            // listens to any errors
-            listener: (context, state) {
-          if (state is AuthError) {
-            ScaffoldMessenger.of(context)
-                .showSnackBar(SnackBar(content: Text(state.message)));
-          }
-        }),
       ),
     );
-
-    // MaterialApp(
-    //   debugShowCheckedModeBanner: false,
-    //   theme: lightmode,
-    //   // home: HomeScreen(),
-    //   home: AuthPage(),
-    // );
   }
 }

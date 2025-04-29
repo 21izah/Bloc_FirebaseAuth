@@ -60,4 +60,18 @@ HELPER METHODS - to upload files to storage
       return null;
     }
   }
+
+  // for post
+
+  @override
+  Future<String?> uploadPostImageMobile(String path, String fileName) {
+    return _uploadFile(path, fileName, "post_images");
+  }
+
+  @override
+  Future<String?> uploadPostImageWeb(Uint8List fileBytes, String fileName) {
+    return _uploadFileBytes(fileBytes, fileName, "post_images");
+  }
+
+  // for post
 }

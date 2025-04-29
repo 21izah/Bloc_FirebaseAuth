@@ -10,6 +10,7 @@ import 'package:izahs/features/profile/domain/entities/profile_user.dart';
 import 'package:izahs/features/profile/presentation/cubits/profile_cubit.dart';
 import 'package:izahs/features/profile/presentation/cubits/profile_states.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:izahs/responsive/constrained_scaffold.dart';
 
 class EditProfilePage extends StatefulWidget {
   final ProfileUser user;
@@ -80,8 +81,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
       },
       builder: (context, state) {
         if (state is ProfileLoading) {
-          return Scaffold(
+          return ConstrainedScaffold(
             body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [CircularProgressIndicator(), Text("Uploading....")],
             ),
           );
@@ -93,7 +95,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
   }
 
   Widget buildEditPage() {
-    return Scaffold(
+    return ConstrainedScaffold(
       appBar: AppBar(
         title: Text('Edit Profile'),
         foregroundColor: Theme.of(context).colorScheme.primary,
@@ -135,8 +137,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             CachedNetworkImage(
                                 imageUrl: widget.user.profileImageUrl,
                                 // loading...
-                                placeholder: (context, url) =>
-                                    const CircularProgressIndicator(),
+                                placeholder: (context, url) => Center(
+                                    child: const CircularProgressIndicator()),
 
                                 // error
                                 errorWidget: (context, url, error) => Icon(

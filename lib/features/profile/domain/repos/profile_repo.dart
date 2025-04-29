@@ -13,4 +13,6 @@ abstract class ProfileRepo {
 
   // update user profile
   Future<void> updateProfile(ProfileUser updateProfile);
+
+  Future<void> toggleFollow(String currentUid, String targetUid);
 }

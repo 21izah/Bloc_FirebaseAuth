@@ -2,6 +2,7 @@
 Auth cubit: State Management
 */
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:izahs/features/auth/domain/entities/app_user.dart';
 import 'package:izahs/features/auth/domain/repos/auth_repo.dart';
@@ -38,29 +39,45 @@ class AuthCubit extends Cubit<AuthState> {
   Future<void> register(String name, String email, String pw) async {
     try {
       emit(AuthLoading());
+      debugPrint('AuthLoading emitted');
       final user = await authRepo.registerWithEmailPassowrd(name, email, pw);
+
+      debugPrint('Repo call completed, user: $user');
       if (user != null) {
         _currrenUser = user;
         emit(Authenticated(user));
+        debugPrint('Authenticated emitted');
       }
     } catch (e) {
       emit(AuthError(e.toString()));
+      debugPrint('AuthError emitted');
       emit(Unauthenticated());
     }
   }
 
   // 04. login with email + pw
+
   Future<void> login(String email, String pw) async {
+    debugPrint('Login started');
     try {
       emit(AuthLoading());
-      final user = await authRepo.loginWithEmailPassword(email, pw);
+      debugPrint('AuthLoading emitted');
+      // final user = await authRepo.loginWithEmailPassword(email, pw);
+      final user = await authRepo
+          .loginWithEmailPassword(email, pw)
+          .timeout(const Duration(seconds: 6));
+      debugPrint('Repo call completed, user: $user');
       if (user != null) {
         _currrenUser = user;
         emit(Authenticated(user));
+        debugPrint('Authenticated emitted');
+      } else {
+        emit(AuthError("Login failed"));
+        debugPrint('AuthError emitted');
       }
     } catch (e) {
+      debugPrint('Login error: $e');
       emit(AuthError(e.toString()));
-      emit(Unauthenticated());
     }
   }
 
