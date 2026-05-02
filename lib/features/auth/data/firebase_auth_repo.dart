@@ -33,7 +33,7 @@ class FirebaseAuthRepo implements AuthRepo {
       // return user
       return user;
     } catch (e) {
-      throw Exception('login failed' + e.toString());
+      throw Exception('login failed$e');
     }
   }
 
@@ -58,13 +58,14 @@ class FirebaseAuthRepo implements AuthRepo {
       // return user
       return user;
     } catch (e) {
-      throw Exception('Registeration failed' + e.toString());
+      throw Exception('Registeration failed$e');
     }
   }
 
   @override
   Future<AppUser?> logout() async {
     await firebaseAuth.signOut();
+    return null;
   }
 
   @override

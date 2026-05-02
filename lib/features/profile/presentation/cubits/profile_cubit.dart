@@ -3,15 +3,13 @@ import 'package:izahs/features/profile/domain/entities/profile_user.dart';
 import 'package:izahs/features/profile/domain/repos/profile_repo.dart';
 import 'package:izahs/features/profile/presentation/cubits/profile_states.dart';
 import 'package:izahs/features/storage/domain/storage_repo.dart';
-import 'dart:io';
 import 'dart:typed_data';
 
 class ProfileCubit extends Cubit<ProfileState> {
   final ProfileRepo profileRepo;
   final StorageRepo storageRepo;
 
-  ProfileCubit({required this.profileRepo, required this.storageRepo})
-      : super(ProfileInitial());
+  ProfileCubit({required this.profileRepo, required this.storageRepo}) : super(ProfileInitial());
 
   // fetch user profile using repo -> useful for loading profile pages
   Future<void> fetchUserProfile(String uid) async {
@@ -57,12 +55,10 @@ class ProfileCubit extends Cubit<ProfileState> {
         // for mobile
         if (imageMobilePath != null) {
           // upload
-          imageDownloadUrl =
-              await storageRepo.uploadProfileImageMobile(imageMobilePath, uid);
+          imageDownloadUrl = await storageRepo.uploadProfileImageMobile(imageMobilePath, uid);
         } else if (imageWebBytes != null) {
           // uplaod
-          imageDownloadUrl =
-              await storageRepo.uploadProfileImageWeb(imageWebBytes, uid);
+          imageDownloadUrl = await storageRepo.uploadProfileImageWeb(imageWebBytes, uid);
         }
 
         if (imageDownloadUrl == null) {

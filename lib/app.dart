@@ -41,6 +41,9 @@ class MyApp extends StatelessWidget {
   final firebaseStorageRepo = FirebaseStorageRepo();
   final firebasePostRepo = FirebasePostRepo();
   final firebaseSearchRepo = FirebaseSearchRepo();
+  final ThemeCubit themeCubit; // Add this
+
+  MyApp({super.key, required this.themeCubit});
 
   @override
   Widget build(BuildContext context) {
@@ -48,8 +51,7 @@ class MyApp extends StatelessWidget {
       providers: [
         // Auth Cubit
         BlocProvider<AuthCubit>(
-          create: (context) =>
-              AuthCubit(authRepo: firebaseAuthRepo)..checkAuth(),
+          create: (context) => AuthCubit(authRepo: firebaseAuthRepo)..checkAuth(),
         ),
 
         // Profile Cubit
@@ -74,8 +76,8 @@ class MyApp extends StatelessWidget {
         ),
 
         // Theme Cubit
-        BlocProvider<ThemeCubit>(
-          create: (context) => ThemeCubit(),
+        BlocProvider<ThemeCubit>.value(
+          value: themeCubit, // Use the instance passed from main
         ),
       ],
       child: BlocBuilder<ThemeCubit, ThemeData>(

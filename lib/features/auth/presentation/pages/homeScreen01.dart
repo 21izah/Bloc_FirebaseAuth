@@ -4,6 +4,8 @@ import 'package:izahs/widgets/drawer.dart';
 import 'package:lottie/lottie.dart';
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -147,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               if (isMobile)
-                                Container(
+                                SizedBox(
                                   // color: Colors.amber,
                                   height: screenSize.height * 0.3,
                                   width: double.infinity,

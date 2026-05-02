@@ -93,6 +93,7 @@ class _HiddenDrawerState extends State<HiddenDrawer> {
     ];
   }
 
+  @override
   Widget build(BuildContext context) {
     return HiddenDrawerMenu(
       slidePercent: 90,

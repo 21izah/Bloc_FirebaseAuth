@@ -65,7 +65,7 @@ class DefaultFirebaseOptions {
     projectId: 'izahs-1ae32',
     storageBucket: 'izahs-1ae32.firebasestorage.app',
     iosClientId: '82966115010-nagg4ocdlhqbk44dr4l1ahoqm7p0ej39.apps.googleusercontent.com',
-    iosBundleId: 'com.example.izahs',
+    iosBundleId: 'com.izahs.social',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -75,7 +75,7 @@ class DefaultFirebaseOptions {
     projectId: 'izahs-1ae32',
     storageBucket: 'izahs-1ae32.firebasestorage.app',
     iosClientId: '82966115010-nagg4ocdlhqbk44dr4l1ahoqm7p0ej39.apps.googleusercontent.com',
-    iosBundleId: 'com.example.izahs',
+    iosBundleId: 'com.izahs.social',
   );
 
   static const FirebaseOptions windows = FirebaseOptions(

@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:82966115010:android:fd5b9bb0aa419adbb2015b",
         "android_client_info": {
-          "package_name": "com.example.izahs"
+          "package_name": "com.izahs.social"
         }
       },
       "oauth_client": [
@@ -34,7 +34,7 @@
               "client_id": "82966115010-nagg4ocdlhqbk44dr4l1ahoqm7p0ej39.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.izahs"
+                "bundle_id": "com.izahs.social"
               }
             }
           ]

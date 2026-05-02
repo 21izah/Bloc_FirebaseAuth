@@ -18,6 +18,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final emailController = TextEditingController();
   final pwController = TextEditingController();
+  bool passwordObscured = true;
 
   void login() {
     final String email = emailController.text;
@@ -28,8 +29,8 @@ class _LoginPageState extends State<LoginPage> {
     if (email.isNotEmpty && pw.isNotEmpty) {
       authCubit.login(email, pw);
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Please enter both email and password")));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Please enter both email and password")));
     }
   }
 
@@ -91,17 +92,37 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       height: 25,
                     ),
-                    MyTextFields(
-                        controller: emailController,
-                        hintText: 'Email',
-                        obsureText: false),
+                    MyTextFields(controller: emailController, hintText: 'Email', obsureText: false),
                     SizedBox(
                       height: 10,
                     ),
-                    MyTextFields(
-                        controller: pwController,
+                    TextField(
+                      controller: pwController,
+                      obscureText: passwordObscured,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Theme.of(context).colorScheme.tertiary),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                         hintText: 'Password',
-                        obsureText: true),
+                        suffixIcon: IconButton(
+                          onPressed: (() => setState(() {
+                                passwordObscured = !passwordObscured;
+                              })),
+                          icon: Icon(
+                            passwordObscured ? Icons.visibility_off : Icons.visibility,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
+                        fillColor: Theme.of(context).colorScheme.tertiary,
+                        filled: true,
+                      ),
+                    ),
                     SizedBox(
                       height: 10,
                     ),
@@ -114,17 +135,15 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         Text(
                           "Not a member? ",
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.primary),
+                          style: TextStyle(color: Theme.of(context).colorScheme.primary),
                         ),
                         GestureDetector(
                           onTap: widget.togglePages,
                           child: Text(
                             "Register now",
                             style: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .inversePrimary),
+                              color: Theme.of(context).colorScheme.inversePrimary,
+                            ),
                           ),
                         ),
                       ],
@@ -139,76 +158,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-//   @override
-//   Widget build(BuildContext context) {
-//     return ConstrainedScaffold(
-//       body: SafeArea(
-//         child: Center(
-//           child: Padding(
-//             padding: const EdgeInsets.symmetric(horizontal: 20.0),
-//             child: Column(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               children: [
-//                 Icon(
-//                   Icons.lock_open_rounded,
-//                   size: 80,
-//                   color: Theme.of(context).colorScheme.primary,
-//                 ),
-//                 SizedBox(
-//                   height: 50,
-//                 ),
-//                 Text(
-//                   "Welcome back, you've been missed!",
-//                   style: TextStyle(
-//                     color: Theme.of(context).colorScheme.primary,
-//                     fontSize: 16,
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: 25,
-//                 ),
-//                 MyTextFields(
-//                     controller: emailController,
-//                     hintText: 'Email',
-//                     obsureText: false),
-//                 SizedBox(
-//                   height: 10,
-//                 ),
-//                 MyTextFields(
-//                     controller: pwController,
-//                     hintText: 'Password',
-//                     obsureText: true),
-//                 SizedBox(
-//                   height: 10,
-//                 ),
-//                 MyButton(onTap: login, text: 'Login'),
-//                 SizedBox(
-//                   height: 50,
-//                 ),
-//                 Row(
-//                   mainAxisAlignment: MainAxisAlignment.center,
-//                   children: [
-//                     Text(
-//                       "Not a member? ",
-//                       style: TextStyle(
-//                           color: Theme.of(context).colorScheme.primary),
-//                     ),
-//                     GestureDetector(
-//                       onTap: widget.togglePages,
-//                       child: Text(
-//                         "Register now",
-//                         style: TextStyle(
-//                             color:
-//                                 Theme.of(context).colorScheme.inversePrimary),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }

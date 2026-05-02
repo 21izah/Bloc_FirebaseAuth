@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyDrawer extends StatelessWidget {
+  const MyDrawer({super.key});
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -161,7 +163,6 @@ class MyDrawer extends StatelessWidget {
     required imagePath,
     required String title,
     required VoidCallback onTap,
-    Color color = Colors.white,
   }) {
     return ListTile(
       leading: Image.asset(

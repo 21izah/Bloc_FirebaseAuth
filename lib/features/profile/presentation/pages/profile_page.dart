@@ -95,7 +95,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
           return ConstrainedScaffold(
             appBar: AppBar(
-              title: Text("${user.name}"),
+              title: Text(user.name),
               foregroundColor: Theme.of(context).colorScheme.primary,
               actions: [
                 if (isOwnPost)

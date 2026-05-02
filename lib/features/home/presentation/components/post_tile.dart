@@ -592,7 +592,7 @@ class _PostTileState extends State<PostTile> {
           // COMMENTS SECTION
           BlocBuilder<PostCubit, PostState>(
             builder: (context, state) {
-              String _formatTimeAgo(DateTime date) {
+              String formatTimeAgo(DateTime date) {
                 final now = DateTime.now();
                 final difference = now.difference(date);
 
@@ -686,7 +686,7 @@ class _PostTileState extends State<PostTile> {
                                 const SizedBox(width: 8),
                                 // Timestamp
                                 Text(
-                                  _formatTimeAgo(comment.timestamp),
+                                  formatTimeAgo(comment.timestamp),
                                   style: TextStyle(
                                     color: Colors.grey[600],
                                     fontSize: 12,

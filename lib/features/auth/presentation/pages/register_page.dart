@@ -18,6 +18,7 @@ class _RegisterPageState extends State<RegisterPage> {
   final nameController = TextEditingController();
   final pwController = TextEditingController();
   final confirmPwController = TextEditingController();
+  bool passwordObscured = true;
 
   void register() {
     final String name = nameController.text;
@@ -29,11 +30,9 @@ class _RegisterPageState extends State<RegisterPage> {
     final authCubit = context.read<AuthCubit>();
 
     // ensure fields aren't empty
-    if (email.isNotEmpty &&
-        name.isNotEmpty &&
-        pw.isNotEmpty & confirmPw.isNotEmpty) {
+    if (email.isNotEmpty && name.isNotEmpty && pw.isNotEmpty & confirmPw.isNotEmpty) {
       // ensure the passwords match
-      if (pw == confirmPw) {
+      if (pw.trim() == confirmPw.trim()) {
         authCubit.register(name, email, pw);
       } else {
         ScaffoldMessenger.of(context)
@@ -83,31 +82,71 @@ class _RegisterPageState extends State<RegisterPage> {
                 SizedBox(
                   height: 25,
                 ),
-                MyTextFields(
-                    controller: nameController,
-                    hintText: 'Name',
-                    obsureText: false),
+                MyTextFields(controller: nameController, hintText: 'Name', obsureText: false),
                 SizedBox(
                   height: 10,
                 ),
-                MyTextFields(
-                    controller: emailController,
-                    hintText: 'Email',
-                    obsureText: false),
+                MyTextFields(controller: emailController, hintText: 'Email', obsureText: false),
                 SizedBox(
                   height: 10,
                 ),
-                MyTextFields(
-                    controller: pwController,
+                TextField(
+                  controller: pwController,
+                  obscureText: passwordObscured,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Theme.of(context).colorScheme.tertiary),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                     hintText: 'Password',
-                    obsureText: true),
+                    suffixIcon: IconButton(
+                      onPressed: (() => setState(() {
+                            passwordObscured = !passwordObscured;
+                          })),
+                      icon: Icon(
+                        passwordObscured ? Icons.visibility_off : Icons.visibility,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
+                    fillColor: Theme.of(context).colorScheme.tertiary,
+                    filled: true,
+                  ),
+                ),
                 SizedBox(
                   height: 10,
                 ),
-                MyTextFields(
-                    controller: confirmPwController,
+                TextField(
+                  controller: confirmPwController,
+                  obscureText: passwordObscured,
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Theme.of(context).colorScheme.tertiary),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
                     hintText: 'Confirm Password',
-                    obsureText: true),
+                    suffixIcon: IconButton(
+                      onPressed: (() => setState(() {
+                            passwordObscured = !passwordObscured;
+                          })),
+                      icon: Icon(
+                        passwordObscured ? Icons.visibility_off : Icons.visibility,
+                        color: Colors.grey,
+                      ),
+                    ),
+                    hintStyle: TextStyle(color: Theme.of(context).colorScheme.primary),
+                    fillColor: Theme.of(context).colorScheme.tertiary,
+                    filled: true,
+                  ),
+                ),
                 SizedBox(
                   height: 10,
                 ),
@@ -120,15 +159,15 @@ class _RegisterPageState extends State<RegisterPage> {
                   children: [
                     Text(
                       "Already a member? ",
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary),
+                      style: TextStyle(color: Theme.of(context).colorScheme.primary),
                     ),
                     GestureDetector(
                       onTap: widget.togglePages,
                       child: Text(
                         " Login now",
                         style: TextStyle(
-                            color: Theme.of(context).colorScheme.tertiary),
+                          color: Theme.of(context).colorScheme.inversePrimary,
+                        ),
                       ),
                     ),
                   ],

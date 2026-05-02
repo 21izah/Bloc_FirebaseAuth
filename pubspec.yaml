@@ -45,11 +45,48 @@ dependencies:
   supabase_flutter: ^2.8.4
   file_picker: ^10.0.0
   cached_network_image: ^3.4.1
+  hive: ^2.0.5
+  hive_flutter: ^1.1.0
+  icons_launcher: ^3.0.2
+  rename: ^3.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  hive_generator: ^2.0.1
+  build_runner: ^2.1.5
 
+icons_launcher:
+  image_path: "lib/assets/izahs_logo.png"
+  platforms:
+    android:
+      enable: true
+      image_path: "lib/assets/izahs_logo.png"
+      notification_image: "lib/assets/izahs_logo.png"
+      # adaptive_background_color: '#ffffff'
+      adaptive_background_image: "lib/assets/izahs_logo.png"
+      adaptive_foreground_image: "lib/assets/izahs_logo.png"
+      adaptive_round_image: "lib/assets/izahs_logo.png"
+      adaptive_monochrome_image: "lib/assets/izahs_logo.png"
+    ios:
+      enable: true
+      image_path: "lib/assets/izahs_logo.png"
+      # For iOS 18+ (support dark and tinted)
+      dark_path: "lib/assets/izahs_logo.png"
+      tinted_path: "lib/assets/izahs_logo.png"
+    web:
+      enable: true
+      image_path: "lib/assets/izahs_logo.png"
+      favicon_path: "lib/assets/izahs_logo.png"
+    macos:
+      enable: false
+      image_path: "lib/assets/izahs_logo.png"
+    windows:
+      enable: false
+      image_path: "lib/assets/izahs_logo.png"
+    linux:
+      enable: false
+      image_path: "lib/assets/izahs_logo.png"
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
